@@ -24,12 +24,12 @@ def draw(
     seed: int | bytes | bytearray | None = 42,
 ) -> str:
     if isinstance(value, int):
-        value = int.to_bytes(value)
+        value = int.to_bytes(value, 32)
 
     if isinstance(seed, int):
-        seed = int.to_bytes(seed)
+        seed = int.to_bytes(seed, 32)
 
-    m = hashlib.sha3_224()
+    m = hashlib.sha3_256()
     m.update(value)
     m.update(seed)
     value = int.from_bytes(m.digest())
@@ -42,6 +42,3 @@ def draw(
     shade = __shades[value % __NS]
 
     return f"{color} {shade}"
-
-
-# %%
